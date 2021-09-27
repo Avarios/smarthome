@@ -7,6 +7,7 @@ var handler = async (event, context, callback) => {
   let s3 = new AWS.S3({
     apiVersion: "latest"
   });
+
   try {
     await s3.putObject({
       Bucket: bucket,
@@ -37,6 +38,7 @@ var handler = async (event, context, callback) => {
     callback(error);
   }
 };
+
 function makeid(length) {
   var result = "";
   var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -46,4 +48,5 @@ function makeid(length) {
   }
   return result;
 }
+
 exports.handler = handler;
