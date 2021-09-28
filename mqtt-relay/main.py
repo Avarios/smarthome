@@ -30,11 +30,15 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         mqttPayload = json.loads(msg.payload.decode())
         splitted = msg.topic.split('/')
-        mqttPayload['sensorId'] = splitted[1]
-        
-        payload = json.dumps(mqttPayload,indent=4)
-        print(f"Received data from `{msg.topic}` topic")
-        print('{}',payload )
+        flatObject = {
+           'sensorId':  splitted[1],    
+           'time': mqttPayload['Time'],
+           'total': mqttPayload['ENERGY']['Total'],
+           'power': mqttPayload['ENERGY']['Power'],
+           'current': mqttPayload['ENERGY']['Current']
+        }
+        payload = json.dumps(flatObject,indent=4)
+        print(f"Received data from topic:`{msg.topic}` \n data: {payload}")
         send_iot_data(payload)
 
     client.subscribe(topic)
