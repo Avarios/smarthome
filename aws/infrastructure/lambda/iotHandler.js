@@ -7,12 +7,13 @@ var handler = async (event, context, callback) => {
   let s3 = new AWS.S3({
     apiVersion: "latest"
   });
-
+  let body = JSON.parse(event.body);
+  console.log(`Recieved body : ${JSON.stringify(body)}`);
   try {
     await s3.putObject({
       Bucket: bucket,
       Key: fileId,
-      Body: JSON.parse(event.body),
+      Body: JSON.stringify(body),
       ContentType: "application/json; charset=utf-8"
     }).promise();
     let response = {
@@ -20,7 +21,7 @@ var handler = async (event, context, callback) => {
       body: JSON.stringify({
         success: true,
         fileName: fileId,
-        message: ""
+        message: 'Ok'
       }) ,
       isBase64Encoded: false
     };
@@ -35,6 +36,7 @@ var handler = async (event, context, callback) => {
       },
       isBase64Encoded: false
     };
+    console.error(JSON.stringify(e));
     callback(error);
   }
 };

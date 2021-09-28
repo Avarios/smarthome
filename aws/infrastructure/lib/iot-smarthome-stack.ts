@@ -5,11 +5,11 @@ import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import * as path from 'path';
 import * as s3 from '@aws-cdk/aws-s3';
 
-export class IotAwsBridgeStack extends Stack {
+export class IotSmarthomeStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    let iotBucket = new s3.Bucket(this, 'myIotBucket', {
+    let iotBucket = new s3.Bucket(this, 'smarthome-iot-bucket', {
     })
 
     let iotHandler = new NodejsFunction(this, 'iotIngestFunction', {

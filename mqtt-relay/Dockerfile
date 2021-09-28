@@ -1,5 +1,5 @@
-FROM python:3-alpine3.9
+FROM node:16.8
 ADD . /code
 WORKDIR /code
-RUN pip install -r requirements.txt
-CMD ["python", "main.py"]
+RUN npm install --production
+CMD ["node", "index.js"]
