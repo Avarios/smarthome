@@ -1,4 +1,4 @@
-import { Construct, Stack, StackProps, Duration, CfnOutput } from '@aws-cdk/core';
+import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
 import * as apigw from '@aws-cdk/aws-apigateway';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
