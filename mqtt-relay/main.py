@@ -1,5 +1,6 @@
 from paho.mqtt import client as mqtt_client
 import requests
+import json
 
 broker = '192.168.50.225'
 port = 1883
@@ -19,6 +20,7 @@ def connect_broker() -> mqtt_client:
     return client
 
 def send_iot_data(data):
+    print(f"Saving `{data}`")
     r = requests.post(api_url,json=data)
     r.headers['x-api-key'] = api_key
     print(r.text)
@@ -26,8 +28,13 @@ def send_iot_data(data):
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        payload = msg.payload.decode()
-        print(f"Received `{payload}` from `{msg.topic}` topic")
+        mqttPayload = json.loads(msg.payload.decode())
+        splitted = msg.topic.split('/')
+        mqttPayload['sensorId'] = splitted[1]
+        
+        payload = json.dumps(mqttPayload,indent=4)
+        print(f"Received data from `{msg.topic}` topic")
+        print('{}',payload )
         send_iot_data(payload)
 
     client.subscribe(topic)
