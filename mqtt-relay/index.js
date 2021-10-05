@@ -1,7 +1,8 @@
-const mqtt = require('mqtt')
+const mqtt = require('mqtt');
 const request = require('request');
-const client = mqtt.connect('mqtt://192.168.50.225:1883')
-const apiUrl = 'https://u4u945u70c.execute-api.eu-central-1.amazonaws.com/prod/'
+const client = mqtt.connect('mqtt://192.168.50.225:1883');
+const apiUrl = 'https://ctiku3zfd3.execute-api.eu-central-1.amazonaws.com/prod/';
+const apiKey = 'dDNVq3s74F4Jg5pKoxhRd495fusMOtLL5fMQMVf6';
 
 client.on('connect', () => {
     console.log(`connected to Server`)
@@ -10,7 +11,6 @@ client.on('connect', () => {
 
 client.on('message', (topic, message) => {
     let mqttMessage = JSON.parse(message);
-    console.log(mqttMessage)
     let id = topic.split('/')[1];
     let requestBody = {
         "sensorId": id,
@@ -19,8 +19,12 @@ client.on('message', (topic, message) => {
         "power": mqttMessage.ENERGY.Power,
         "current": mqttMessage.ENERGY.Current,
     };
+    console.debug(requestBody);
     request.post(apiUrl, {
         body: JSON.stringify(requestBody),
+        headers:{
+            'x-api-key': apiKey
+        }
     }, (error, response) => {
         if (error) {
             console.error(error);
