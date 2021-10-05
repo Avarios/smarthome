@@ -1,8 +1,8 @@
 const mqtt = require('mqtt');
 const request = require('request');
 const client = mqtt.connect('mqtt://192.168.50.225:1883');
-const apiUrl = 'https://ctiku3zfd3.execute-api.eu-central-1.amazonaws.com/prod/';
-const apiKey = 'dDNVq3s74F4Jg5pKoxhRd495fusMOtLL5fMQMVf6';
+const apiUrl = 'ADD URL HERE';
+const apiKey = 'ADD KEY HERE';
 
 client.on('connect', () => {
     console.log(`connected to Server`)
