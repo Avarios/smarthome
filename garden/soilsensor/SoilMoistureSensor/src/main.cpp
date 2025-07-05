@@ -13,6 +13,11 @@ const int sleepMinutes = 60; // Sleep time in minutes, adjust as needed
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+//TODO:
+// 1. Add error handling for WiFi and MQTT connection failures.
+// 2. Add a function to handle incoming MQTT messages for remote control or configuration.
+// 3. Add code that checks if Voltage is under 3.3 then put into infinite deep sleep mode.
+
 void setup()
 {
   Serial.begin(115200);
