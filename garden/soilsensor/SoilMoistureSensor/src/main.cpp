@@ -20,7 +20,10 @@ PubSubClient client(espClient);
 
 void setup()
 {
-  Serial.begin(115200);
+  if (Serial)
+  {
+    Serial.begin(115200);
+  }  
 
   WiFi.begin(ssid, password);
   printf("Connecting to WiFi...\n");
